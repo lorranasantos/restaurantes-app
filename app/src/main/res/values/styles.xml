@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="cardTitleAppearance" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/title</item>
+        <item name="android:textStyle">bold</item>
+        <item name="theme">@style/TextAppearance.AppCompat.Small</item>
+    </style>
+    <style name="menuTitleAppearance" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="theme">@style/TextAppearance.AppCompat.Large</item>
+    </style>
+    <style name="menuSubtitleAppearance" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/title</item>
+        <item name="android:textStyle">normal</item>
+        <item name="theme">@style/TextAppearance.AppCompat.Medium</item>
+    </style>
+
+</resources>

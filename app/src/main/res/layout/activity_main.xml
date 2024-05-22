@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="6dp"
+    android:background="@color/background">
+
+    <TextView
+        android:id="@+id/menu_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="50sp"
+        android:text="qFome"
+        android:layout_marginTop="2dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/menuTitleAppearance"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_welcome_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"
+        android:text="BEM-VINDO!"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textAppearance="@style/menuSubtitleAppearance"
+
+        app:layout_constraintTop_toBottomOf="@+id/menu_app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_help_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"
+        android:text="Como podemos ajudar?"
+        android:textAlignment="center"
+        android:textAppearance="@style/menuSubtitleAppearance"
+
+        app:layout_constraintTop_toBottomOf="@+id/text_welcome_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="151dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center_horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/go_register_restaurant"
+                android:layout_width="130dp"
+                android:layout_height="150dp"
+                app:cardCornerRadius="6dp"
+                android:layout_marginEnd="6dp">
+                
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/card">
+                    
+                    <ImageView
+                        android:id="@+id/image_register_rest"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/baseline_add_business_24"
+
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="Cadastrar Restaurante"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/cardTitleAppearance"
+
+                        app:layout_constraintTop_toBottomOf="@+id/image_register_rest"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                    
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/go_list_restaurants"
+                android:layout_width="130dp"
+                android:layout_height="150dp"
+                app:cardCornerRadius="6dp"
+                android:layout_marginStart="6dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/card">
+
+                    <ImageView
+                        android:id="@+id/image_rest_list"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/baseline_storefront_24"
+
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="Restaurantes Cadastrados"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/cardTitleAppearance"
+
+                        app:layout_constraintTop_toBottomOf="@+id/image_rest_list"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
