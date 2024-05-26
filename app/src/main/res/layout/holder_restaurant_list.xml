@@ -50,6 +50,7 @@
                 android:background="@drawable/search">
 
                 <TextView
+                    android:id="@+id/tv_rest_category"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Italiana"

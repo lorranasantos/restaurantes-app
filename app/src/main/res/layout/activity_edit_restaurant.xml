@@ -24,7 +24,7 @@
         android:id="@+id/text_title_register"
         android:layout_width="wrap_content"
         android:layout_height="30sp"
-        android:text="Cadastro de Restaurante"
+        android:text="Editar dados do Restaurante"
         android:textAlignment="center"
         android:textStyle="bold"
         android:textAppearance="@style/menuSubtitleAppearance"
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/text_title_register">
 
         <EditText
-            android:id="@+id/restaurant_name_register"
+            android:id="@+id/restaurant_name_edit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
@@ -67,24 +67,8 @@
             android:background="@drawable/custom_input"
             />
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/custom_input">
-
-            <Spinner
-                android:id="@+id/rest_category_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true" />
-
-        </RelativeLayout>
-
         <EditText
-            android:id="@+id/restaurant_description_register"
+            android:id="@+id/restaurant_description_edit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
@@ -94,11 +78,11 @@
             />
 
         <Button
-            android:id="@+id/button_next_register"
+            android:id="@+id/button_save_edition"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
-            android:text="Próximo"
+            android:text="Salvar"
             android:background="@drawable/button"/>
 
     </LinearLayout>

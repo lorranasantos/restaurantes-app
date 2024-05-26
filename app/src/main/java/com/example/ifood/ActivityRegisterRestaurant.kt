@@ -3,49 +3,53 @@ package com.example.ifood
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
 import com.example.ifood.api.CallRestaurantCategory
+import com.example.ifood.api.CallRestaurants
 import com.example.ifood.api.RetrofitApi
 import com.example.ifood.model.Categories
+import com.example.ifood.model.Restaurants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class ActivityRegisterRestaurant : AppCompatActivity(), View.OnClickListener {
+class ActivityRegisterRestaurant : AppCompatActivity() {
 
     private lateinit var buttonGoRegisterAddress: Button
+    private lateinit var restaurantName: EditText
+    private lateinit var restaurantDescription: EditText
 
     private lateinit var categoriesList: Spinner
+
+    private lateinit var categoryMap: MutableMap<String, Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_restaurant)
 
-        val retrofit = RetrofitApi.getRetrofit()
-
         supportActionBar?.hide();
 
+        categoryMap = mutableMapOf()
+
+        restaurantName = findViewById(R.id.restaurant_name_register)
+        restaurantDescription = findViewById(R.id.restaurant_description_register)
+
         buttonGoRegisterAddress = findViewById(R.id.button_next_register)
-        buttonGoRegisterAddress.setOnClickListener(this)
+        buttonGoRegisterAddress.setOnClickListener{
+            saveRestaurantData()
+        }
 
         categoriesList = findViewById(R.id.rest_category_list)
 
         fetchCategories()
 
-    }
-
-    override fun onClick(v: View){
-        when(v.id){
-            R.id.button_next_register-> {
-
-                val openRegisterAddress = Intent(this, RegisterAddressActivity::class.java)
-                startActivity(openRegisterAddress)
-            }
-        }
     }
 
     private fun fetchCategories() {
@@ -65,15 +69,65 @@ class ActivityRegisterRestaurant : AppCompatActivity(), View.OnClickListener {
 
                         categoriesList.adapter = adapter
 
-                        categoryNames.forEach { name ->
-                            println("Category: $name")
+                        for (category in categories) {
+                            categoryMap[category.category] = category.id
                         }
+
                     }
+                } else{
+                    Log.e("API_CALL", "Failed to fetch categories: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<List<Categories>>, t: Throwable) {
-                // Trate a falha aqui
+                Log.e("API_CALL", "Failed to fetch categories", t)
+            }
+        })
+    }
+
+    private fun saveRestaurantData() {
+        val retrofit = RetrofitApi.getRetrofit()
+        val restCall = retrofit.create(CallRestaurants::class.java)
+
+        val selectedCategory = categoriesList.selectedItem.toString()
+
+        val categoryId = categoryMap[selectedCategory] ?: 0
+
+        val registerRestaurant = Restaurants(
+            name = restaurantName.text.toString(),
+            description = restaurantDescription.text.toString(),
+            category_id = categoryId,
+            image = "",
+            address_id = 1
+        )
+
+        val call = restCall.createRestaurant(registerRestaurant)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Log.d("ta na api", "sss")
+                if (response.isSuccessful) {
+                    Toast.makeText(
+                        this@ActivityRegisterRestaurant,
+                        "Restaurant created successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                } else {
+                    Toast.makeText(
+                        this@ActivityRegisterRestaurant,
+                        "Failed to create restaurant",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(
+                    this@ActivityRegisterRestaurant,
+                    "Error: " + t.message,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
