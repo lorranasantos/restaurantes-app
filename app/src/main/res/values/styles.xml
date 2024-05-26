@@ -18,5 +18,11 @@
         <item name="android:textStyle">normal</item>
         <item name="theme">@style/TextAppearance.AppCompat.Medium</item>
     </style>
+    <style name="splashTitle" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@color/main</item>
+        <item name="android:textStyle">bold</item>
+        <item name="theme">@style/TextAppearance.AppCompat.Large</item>
+    </style>
 
 </resources>

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -42,43 +43,52 @@ class RestaurantListAdapter(val context: Context) : RecyclerView.Adapter<Restaur
         return listItems.size
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
-        val restaurantItems = listItems[position]
-
-        holder.name.text = restaurantItems.name
-        loadCategoryName(holder.category, restaurantItems.category_id) // tentando pegar a categoria
-
-        holder.cardRestaurantList.setOnClickListener{
-            val intent = Intent(context, RestaurantInfoActivity::class.java)
-            intent.putExtra("RestaurantId", restaurantItems.id)
-
-            context.startActivity(intent)
-        }
-    }
 
     private fun loadCategoryName(textView: TextView, categoryId: Int) {
         val retrofit = RetrofitApi.getRetrofit()
-        val callRestaurantCategory = retrofit.create(CallRestaurantCategory::class.java)
-        val call = callRestaurantCategory.getCategoryId(categoryId)
+        val categoryCall = retrofit.create(CallRestaurantCategory::class.java)
+        val call = categoryCall.getCategoryId(categoryId)
 
         call.enqueue(object : Callback<Categories> {
             override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
-                val category = response.body()
-                if (category != null) {
-                    textView.text = category.category
+                if (response.isSuccessful) {
+                    response.body()?.let { category ->
+                        textView.text = category.category.toString()
+
+
+                        Log.e("cat", category.category )
+                    }
+                } else {
+                    Log.e("API_CALL", "Failed to fetch category: ${response.code()}")
+
                 }
             }
 
             override fun onFailure(call: Call<Categories>, t: Throwable) {
-                Log.e("Erro_CONEXÃO", t.message.toString())
-                textView.text = "Unknown"
+                Log.e("API_CALL", "Failed to fetch category", t)
+
             }
         })
     }
 
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        val restaurantItems = listItems[position]
+
+        holder.name.text = restaurantItems.name
+        loadCategoryName(holder.category, restaurantItems.category_id) // Fetch and display category name
+        Log.e("cat2", restaurantItems.category_id.toString())
+
+
+        holder.cardRestaurantList.setOnClickListener{
+            val intent = Intent(context, RestaurantInfoActivity::class.java)
+            intent.putExtra("RestaurantId", restaurantItems.id)
+            context.startActivity(intent)
+        }
+    }
+
     class Holder(view: View): RecyclerView.ViewHolder(view){
-        val name = view.findViewById<TextView>(R.id.text_view_rest_name)
-        val category = view.findViewById<TextView>(R.id.tv_rest_category)
-        val cardRestaurantList = view.findViewById<CardView>(R.id.card_restaurant_list)
+        val name: TextView = view.findViewById(R.id.text_view_rest_name)
+        val category: TextView = view.findViewById(R.id.tv_rest_category)
+        val cardRestaurantList: CardView = view.findViewById(R.id.card_restaurant_list)
     }
 }

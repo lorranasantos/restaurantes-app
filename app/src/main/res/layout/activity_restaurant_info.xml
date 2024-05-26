@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:text="Dados do Restaurante"
+        android:textAppearance="@style/menuTitleAppearance"
 
         app:layout_constraintTop_toBottomOf="@+id/menu_app_name"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -132,6 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:text="Dados de Endereço"
+        android:textAppearance="@style/menuTitleAppearance"
 
         app:layout_constraintTop_toBottomOf="@+id/card_rest_info"
         app:layout_constraintStart_toStartOf="parent"/>
