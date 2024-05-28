@@ -7,9 +7,11 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.ifood.api.CallRestaurantAddress
 import com.example.ifood.api.CallRestaurantCategory
 import com.example.ifood.api.CallRestaurants
 import com.example.ifood.api.RetrofitApi
+import com.example.ifood.model.Address
 import com.example.ifood.model.Categories
 import com.example.ifood.model.Restaurants
 import retrofit2.Call
@@ -43,6 +45,14 @@ class RestaurantInfoActivity : AppCompatActivity() {
         deleteRestaurant = findViewById(R.id.delete_rest)
         editRestaurant = findViewById(R.id.edit_rest)
 
+        restStreet = findViewById(R.id.get_street)
+        restCity = findViewById(R.id.get_city)
+        restState = findViewById(R.id.get_state)
+        restCEP = findViewById(R.id.get_cep)
+        restNeighbourhood = findViewById(R.id.get_nghd)
+        restComplement = findViewById(R.id.get_complem)
+        restNumber = findViewById(R.id.get_number)
+
         supportActionBar?.hide();
 
 
@@ -66,9 +76,13 @@ class RestaurantInfoActivity : AppCompatActivity() {
                 val restaurant = response.body()
                 if (restaurant != null) {
                     val categoryId = restaurant.category_id
+                    val addressId = restaurant.address_id
 
                     val categoryCall = retrofit.create(CallRestaurantCategory::class.java)
                     val categoryCalled = categoryCall.getCategoryId(categoryId)
+
+                    val addressCall = retrofit.create(CallRestaurantAddress::class.java)
+                    val addressCalled = addressCall.getAddressId(addressId)
 
                     categoryCalled.enqueue(object : Callback<Categories> {
                         override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
@@ -87,6 +101,30 @@ class RestaurantInfoActivity : AppCompatActivity() {
                     })
                     restaurantName.text = restaurant.name
                     restaurantDescription.text = restaurant.description
+
+                    addressCalled.enqueue(object : Callback<Address> {
+                        override fun onResponse(call: Call<Address>, response: Response<Address>) {
+                            val address = response.body()
+                            if (address != null ) {
+                                restStreet.text = address.address
+                                restCity.text = address.city
+                                restCEP.text = address.zip_code.toString()
+                                restState.text = address.state
+                                restNeighbourhood.text = address.neighborhood
+                                restComplement.text = address.complement
+                                restNumber.text = address.house_number.toString()
+
+                            } else {
+                                restaurantCategory.text = "Unknown Category"
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Address>, t: Throwable) {
+                            Log.e("RestaurantInfoActivity", "Error fetching Address data", t)
+                            restaurantCategory.text = "Unknown Category"
+                        }
+                    })
+
                 } else {
                     Toast.makeText(this@RestaurantInfoActivity, "No data found", Toast.LENGTH_SHORT).show()
                 }

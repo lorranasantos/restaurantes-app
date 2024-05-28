@@ -132,6 +132,7 @@
         android:id="@+id/tv_address"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_marginTop="15dp"
         android:text="Dados de Endereço"
         android:textAppearance="@style/menuTitleAppearance"
 
@@ -156,11 +157,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
@@ -182,17 +178,6 @@
 
                 </LinearLayout>
 
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/baseline_edit_24"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -204,6 +189,7 @@
                     android:text="Cidade:"/>
 
                 <TextView
+                    android:id="@+id/get_city"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
@@ -248,6 +234,7 @@
                     android:text="Bairro:"/>
 
                 <TextView
+                    android:id="@+id/get_nghd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"

@@ -6,5 +6,5 @@ data class Restaurants (
         var image: String? = "",
         var description: String = "",
         var category_id: Int = 0,
-        var address_id: Int? = 0
+        var address_id: Int = 0
 )
