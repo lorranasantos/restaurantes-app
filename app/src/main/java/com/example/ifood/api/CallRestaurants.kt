@@ -9,6 +9,9 @@ interface CallRestaurants {
     @GET("restaurant")
     fun getRestaurants(): Call<List<Restaurants>>
 
+    @GET("restaurant/search?")
+    fun searchRestaurants(@Query("name") name: String): Call<List<Restaurants>>
+
     @GET("restaurant/{id}")
     fun getRestaurantId(@Path("id") id: Int): Call<Restaurants>
 
