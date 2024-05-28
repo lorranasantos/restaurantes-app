@@ -73,8 +73,7 @@ class RestaurantInfoActivity : AppCompatActivity() {
                     categoryCalled.enqueue(object : Callback<Categories> {
                         override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
                             val category = response.body()
-                            if (category != null) {
-                                Log.e("Rest",  category.category)
+                            if (category != null ) {
                                 restaurantCategory.text = category.category
                             } else {
                                 restaurantCategory.text = "Unknown Category"
