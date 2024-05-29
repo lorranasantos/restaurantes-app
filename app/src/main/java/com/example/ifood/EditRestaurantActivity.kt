@@ -92,6 +92,10 @@ class EditRestaurantActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@EditRestaurantActivity, "Restaurant updated successfully", Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(this@EditRestaurantActivity, MainActivity::class.java)
+                    startActivity(intent)
+
                     finish()
                 } else {
                     Toast.makeText(this@EditRestaurantActivity, "Failed to update restaurant", Toast.LENGTH_SHORT).show()

@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var buttonRegisterRest: CardView
     private lateinit var buttonListRest: CardView
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when(v.id){
             R.id.go_register_restaurant -> {
 
-                val openRegisterRestaurant = Intent(this, ActivityRegisterRestaurant::class.java)
+                val openRegisterRestaurant = Intent(this, RegisterAddressActivity::class.java)
                 startActivity(openRegisterRestaurant)
             }
             R.id.go_list_restaurants -> {

@@ -38,6 +38,12 @@ class ActivityRegisterRestaurant : AppCompatActivity() {
 
         categoryMap = mutableMapOf()
 
+       // val addressId = intent.getIntExtra("ADDRESS_ID", -1) //   if (addressId == -1) {
+      //      Toast.makeText(this, "Falha ao obter ID do endereço", Toast.LENGTH_SHORT).show()
+      ///      finish()
+       //     return
+       // }
+
         restaurantName = findViewById(R.id.restaurant_name_register)
         restaurantDescription = findViewById(R.id.restaurant_description_register)
 
@@ -92,20 +98,21 @@ class ActivityRegisterRestaurant : AppCompatActivity() {
         val selectedCategory = categoriesList.selectedItem.toString()
 
         val categoryId = categoryMap[selectedCategory] ?: 0
+      //  val receivedId: Int = intent.getIntExtra("AddressId", 0)
+
 
         val registerRestaurant = Restaurants(
             name = restaurantName.text.toString(),
             description = restaurantDescription.text.toString(),
             category_id = categoryId,
             image = "",
-            address_id = 1
+            address_id = 26
         )
 
         val call = restCall.createRestaurant(registerRestaurant)
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                Log.d("ta na api", "sss")
                 if (response.isSuccessful) {
                     Toast.makeText(
                         this@ActivityRegisterRestaurant,
